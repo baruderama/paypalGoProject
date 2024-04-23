@@ -24,6 +24,10 @@ func main() {
 	mux.HandleFunc("/estructuras", rutas.Estructuras)
 	//----------------------------------------------------------------------------------------
 
+	//archivos estaticos hacia mux
+	s := http.StripPrefix("/assets/", http.FileServer(http.Dir("./assets/")))
+	mux.PathPrefix("/assets/").Handler(s)
+	//----------------------------------------------------------------------------------------
 	//Ejecucion del servidor
 	//----------------------------------------------------------------------------------------
 	errorVariables := godotenv.Load()

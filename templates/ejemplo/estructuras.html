@@ -19,5 +19,25 @@
           <li>{{.Nombre}}</li>  
         </ul>
     </h3>
+<hr />
+    <h3>Condicionales</h3>
+    {{if ge .Edad 18}}
+    <p>Eres mayor de edad</p>
+    {{else}}
+    <p>Eres menor de edad</p>
+    {{end}}
+    {{if eq .Perfil 1}}
+    <p>eres administrador</p>
+    {{else}}
+    <p>Tienes otro perfil</p>
+    {{end}}
+    <hr />
+    <h3>Iteraciones</h3>
+    {{.Habilidades}}
+    <ul>
+        {{range .Habilidades}}
+            <li>{{.Nombre}}</li>
+        {{end}}
+    </ul>  
 </body>
 </html>

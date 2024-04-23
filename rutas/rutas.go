@@ -67,17 +67,27 @@ func ParametrosQueryString(response http.ResponseWriter, request *http.Request) 
 	fmt.Fprintf(response, "id=%s | slug = %s", id, slug)
 }
 
-type Datos struct {
+type Habilidades struct {
 	Nombre string
-	Edad   int
-	Perfil int
+}
+type Datos struct {
+	Nombre      string
+	Edad        int
+	Perfil      int
+	Habilidades []Habilidades
 }
 
 func Estructuras(response http.ResponseWriter, request *http.Request) {
-	template, err := template.ParseFiles("templates/ejemplo/estructuras.html")
-	if err != nil {
-		panic(err)
-	} else {
-		template.Execute(response, Datos{"cesar", 12, 1})
-	}
+	template, _ := template.ParseFiles("templates/ejemplo/estructuras.html")
+	habilidade1 := Habilidades{"Inteligencia"}
+	habilidade2 := Habilidades{"Videojuegos"}
+	habilidade3 := Habilidades{"Programacion"}
+	habilidade4 := Habilidades{"Canto"}
+	habilidades := []Habilidades{habilidade1, habilidade2, habilidade3, habilidade4}
+	template.Execute(response, Datos{"Cesar", 42, 1, habilidades})
+	// if err != nil {
+	// 	panic(err)
+	// } else {
+	// 	template.Execute(response, Datos{"cesar", 19, 2})
+	// }
 }
