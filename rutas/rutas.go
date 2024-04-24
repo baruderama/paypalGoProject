@@ -4,17 +4,31 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	utilidades "paypalGoProject/utils"
 
 	"github.com/gorilla/mux"
 )
 
 func Home(response http.ResponseWriter, request *http.Request) {
-	template, err := template.ParseFiles("templates/ejemplo/home.html")
-	if err != nil {
-		panic(err)
-	} else {
-		template.Execute(response, nil)
-	}
+	template := template.Must(template.ParseFiles("templates/ejemplo/home.html", utilidades.Frontend))
+	template.Execute(response, nil)
+	// template, err := template.ParseFiles("templates/ejemplo/home.html", "templates/layout/frontend.html")
+	// if err != nil {
+	// 	panic(err)
+	// } else {
+	// 	template.Execute(response, nil)
+	// }
+}
+
+func Pagina404(response http.ResponseWriter, request *http.Request) {
+	template := template.Must(template.ParseFiles("templates/ejemplo/404.html", utilidades.Frontend))
+	template.Execute(response, nil)
+	// template, err := template.ParseFiles("templates/ejemplo/home.html", "templates/layout/frontend.html")
+	// if err != nil {
+	// 	panic(err)
+	// } else {
+	// 	template.Execute(response, nil)
+	// }
 }
 
 // func Home(response http.ResponseWriter, request *http.Request) {
@@ -23,7 +37,7 @@ func Home(response http.ResponseWriter, request *http.Request) {
 // }
 
 func Nosotros(response http.ResponseWriter, request *http.Request) {
-	template, err := template.ParseFiles("templates/ejemplo/nosotros.html")
+	template, err := template.ParseFiles("templates/ejemplo/nosotros.html", "templates/layout/frontend.html")
 	if err != nil {
 		panic(err)
 	} else {
@@ -32,7 +46,7 @@ func Nosotros(response http.ResponseWriter, request *http.Request) {
 }
 
 func Parametros(response http.ResponseWriter, request *http.Request) {
-	template, err := template.ParseFiles("templates/ejemplo/parametros.html")
+	template, err := template.ParseFiles("templates/ejemplo/parametros.html", "templates/layout/frontend.html")
 	vars := mux.Vars(request)
 	data := map[string]string{
 		"id":   vars["id"],
@@ -47,7 +61,7 @@ func Parametros(response http.ResponseWriter, request *http.Request) {
 }
 
 func ParametrosQueryString(response http.ResponseWriter, request *http.Request) {
-	template, err := template.ParseFiles("templates/ejemplo/parametros-query-string.html")
+	template, err := template.ParseFiles("templates/ejemplo/parametros-query-string.html", "templates/layout/frontend.html")
 	data := map[string]string{
 		"id":   request.URL.Query().Get("Id"),
 		"slug": request.URL.Query().Get("slug"),
@@ -78,7 +92,7 @@ type Datos struct {
 }
 
 func Estructuras(response http.ResponseWriter, request *http.Request) {
-	template, _ := template.ParseFiles("templates/ejemplo/estructuras.html")
+	template, _ := template.ParseFiles("templates/ejemplo/estructuras.html", "templates/layout/frontend.html")
 	habilidade1 := Habilidades{"Inteligencia"}
 	habilidade2 := Habilidades{"Videojuegos"}
 	habilidade3 := Habilidades{"Programacion"}

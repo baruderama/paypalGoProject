@@ -22,11 +22,16 @@ func main() {
 	mux.HandleFunc("/parametros/{id:.*}/{slug:.*}", rutas.Parametros)      //formato path
 	mux.HandleFunc("/paramteros-querystring", rutas.ParametrosQueryString) //formato query-String
 	mux.HandleFunc("/estructuras", rutas.Estructuras)
+	mux.HandleFunc("/formularios", rutas.Formularios_get)
+	mux.HandleFunc("/formularios-post", rutas.Formularios_post).Methods("POST")
 	//----------------------------------------------------------------------------------------
 
 	//archivos estaticos hacia mux
 	s := http.StripPrefix("/assets/", http.FileServer(http.Dir("./assets/")))
 	mux.PathPrefix("/assets/").Handler(s)
+
+	//error 404
+	mux.NotFoundHandler = mux.NewRoute().HandlerFunc(rutas.Pagina404).GetHandler()
 	//----------------------------------------------------------------------------------------
 	//Ejecucion del servidor
 	//----------------------------------------------------------------------------------------

@@ -1,0 +1,37 @@
+{{template "header"}}
+<!-- contenido -->
+<main class="container">
+    <h1>Formularios</h1>
+    <div class="row">
+        <form action="/formularios-post" method="POST">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" name="nombre" id="nombre" class="form-control"
+                placeholder="Nombre:"/>
+
+            </div>
+            <div class="form-group">
+                <label for="correo">E-mail:</label>
+                <input type="text" name="correo" id="correo" class="form-control"
+                placeholder="E-mail:"/>
+                  
+            </div>
+            <div class="form-group">
+                <label for="telefono">telefono:</label>
+                <input type="text" name="telefono" id="telefono" class="form-control"
+                placeholder="Telefono:"/>
+                  
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" class="form-control"
+                placeholder="Telefono:"/>
+                  
+            </div>
+            <hr />
+            <input type="submit" value="Enviar" class="btn btn-primary">
+        </form>
+    </div>
+  </main>
+<!-- /contenido -->
+{{template "pie"}}
