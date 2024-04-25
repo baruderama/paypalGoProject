@@ -10,7 +10,12 @@ import (
 
 func Formularios_get(response http.ResponseWriter, request *http.Request) {
 	template := template.Must(template.ParseFiles("templates/formulario/formulario.html", utilidades.Frontend))
-	template.Execute(response, nil)
+	css_session, css_mensaje := utilidades.RetornarMensajesFlash(response, request)
+	data := map[string]string{
+		"css":     css_session,
+		"mensaje": css_mensaje,
+	}
+	template.Execute(response, data)
 }
 
 func Formularios_post(response http.ResponseWriter, request *http.Request) {
@@ -27,8 +32,10 @@ func Formularios_post(response http.ResponseWriter, request *http.Request) {
 		mensaje = mensaje + " . El password debe tener al menos 1 numero, una mayuscula, y un largo entre 6 y 20 caracteres"
 	}
 	if mensaje != "" {
-		fmt.Fprintln(response, mensaje)
-		return
+		// fmt.Fprintln(response, mensaje)
+		// return
+		utilidades.CrearMensajesFlash(response, request, "danger", mensaje)
+		http.Redirect(response, request, "/formularios", http.StatusSeeOther)
 	}
 	fmt.Fprintln(response, request.FormValue("nombre"))
 }
